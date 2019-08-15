@@ -10,10 +10,29 @@
 <body>
 <h1>WeatherME</h1>
 <p>A weather detector.</p>
+<p id="location demo"></p>
 </body>
 
 <footer>
 <p>WeatherME Footer Copyright2019</p>
-</footer>>
+</footer>
 
+
+<script>
+var x = document.getElementById("location demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+getLocation()
+</script>
 </html>

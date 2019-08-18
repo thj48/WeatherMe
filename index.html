@@ -9,6 +9,7 @@
 
 <body>
 <h1>WeatherME</h1>
+<p id="info"></p>
 <p>A weather detector.</p>
 <p id="location demo"></p>
 </body>
@@ -20,6 +21,8 @@
 
 <script>
 var x = document.getElementById("location demo");
+var lati = 0;
+var longi = 0;
 
 function getLocation() {
   if (navigator.geolocation) {
@@ -30,9 +33,38 @@ function getLocation() {
 }
 
 function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
+	lati = position.coords.latitude;
+	longi = position.coords.longitude;
+	x.innerHTML = "Latitude: " + lati + 
+	"<br>Longitude: " + longi;
 }
 getLocation()
+loadDoc()
+
+// function httpGet(theUrl)
+// {
+//     var xmlHttp = new XMLHttpRequest();
+//     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+//     xmlHttp.send( null );
+//     return xmlHttp.responseText;
+// }
+
+//  var w = document.getElementById("info");
+//  w.innerHTML = httpGet("api.openweathermap.org/data/2.5/weather?lat=50&lon=30&appid=b6907d289e10d714a6e88b30761fae22");
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    console.log(xmlHttp.responseText)
+    return xmlHttp.responseText;
+}
+
+function loadDoc() {
+	url = "https://api.openweathermap.org/data/2.5/weather?lat=50&lon=30&appid=b6907d289e10d714a6e88b30761fae22";
+	text = httpGet(url)
+  	document.getElementById("info").innerHTML = text
+}
 </script>
 </html>
